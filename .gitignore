@@ -1,0 +1,14 @@
+bin/
+obj/
+
+# VS Code & User settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.user
+*.suo
+
+# Operating System files
+.DS_Store
+Thumbs.db
