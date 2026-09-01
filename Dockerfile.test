@@ -1,0 +1,17 @@
+# Use the .NET SDK image to build and run unit tests
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS testrunner
+WORKDIR /app
+
+# Copy solution and project files first
+COPY AcasSimulator.slnx ./
+COPY AcasSimulator/AcasSimulator.csproj AcasSimulator/
+COPY AcasSimulator.Tests/AcasSimulator.Tests.csproj AcasSimulator.Tests/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy all remaining source code
+COPY . ./
+
+# Run xUnit tests
+ENTRYPOINT ["dotnet", "test", "--logger:console;verbosity=normal"]

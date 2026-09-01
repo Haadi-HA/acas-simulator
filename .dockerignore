@@ -2,9 +2,6 @@
 **/bin/
 **/obj/
 
-# Ignore test projects (keeps production container lean)
-AcasSimulator.Tests/
-
 # Ignore Git tracking history
 .git/
 .gitignore
@@ -12,10 +9,6 @@ AcasSimulator.Tests/
 # Ignore local IDE settings
 .vs/
 .vscode/
-
-# Ignore Docker files themselves
-Dockerfile*
-.dockerignore
 
 # Ignore documentation/markdown files
 *.md

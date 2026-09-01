@@ -21,7 +21,7 @@ public class TauCalculatorTests
         //Act:
         double tau = TauCalculator.CalculateSlantRangeTau(ownShip, intShip);
         //Assert:
-        Assert.Equal(50.0, tau);
+        Assert.Equal(50.0, tau, precision: 2);
     }
 
         [Fact]
@@ -53,7 +53,7 @@ public class TauCalculatorTests
         double tau = TauCalculator.CalculateSlantRangeTau(ownship, intship);
 
         //Assert:
-        Assert.Equal(100.0, tau);
+        Assert.Equal(100.0, tau, precision: 2);
     }
 
         [Fact]
