@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AcasSimulator.Tests/AcasSimulator.Tests.csproj" />
+  <Project Path="AcasSimulator/AcasSimulator.csproj" />
+</Solution>

@@ -1,0 +1,20 @@
+# Build & Output Directories
+bin/
+obj/
+publish/
+
+# IDE & Editor Files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosv
+*.sln.docstates
+
+# OS system Files
+.DS_Store
+Thumbs.db
+
+# Docker logs/ build residue
+.docker/
