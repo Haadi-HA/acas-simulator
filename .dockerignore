@@ -1,0 +1,18 @@
+# Ignore local compiled binaries and build caches
+**/bin/
+**/obj/
+
+# Ignore Git tracking history
+.git/
+.gitignore
+
+# Ignore local IDE settings
+.vs/
+.vscode/
+
+# Ignore Docker files themselves
+Dockerfile*
+.dockerignore
+
+# Ignore documentation/markdown files
+*.md

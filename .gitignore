@@ -1,14 +1,18 @@
+# Build & Output Directories
 bin/
 obj/
+publish/
 
-# VS Code & User settings
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
+# IDE & Editor Files
+.vs/
+.vscode/
 *.user
 *.suo
+*.userosv
 
-# Operating System files
+# OS system Files
 .DS_Store
 Thumbs.db
+
+# Docker logs/ build residue
+.docker/
