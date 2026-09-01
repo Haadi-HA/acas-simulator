@@ -16,8 +16,8 @@ public class TauCalculatorTests
         //Expect tau = 10NM / 0.2 NM/s = 50s
 
         //Arange:
-        Aircraft ownShip = new Aircraft("OWN1", 0.0, 0.0, 10000.0, 320, 90.0, 0.0);
-        Aircraft intShip = new Aircraft("INT1", 10, 0.0, 10000.0, 320, 270.0, 0.0);
+        Aircraft ownShip = new Aircraft("OWN1", 0.0, 0.0, 10000.0, 360, 90.0, 0.0);
+        Aircraft intShip = new Aircraft("INT1", 10, 0.0, 10000.0, 360, 270.0, 0.0);
         //Act:
         double tau = TauCalculator.CalculateSlantRangeTau(ownShip, intShip);
         //Assert:
