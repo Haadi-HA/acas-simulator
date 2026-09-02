@@ -9,7 +9,7 @@ using AcasSimulator.Models;
 public class TauCalculatorTests
 {
     [Fact]
-    public void CalculateSlantRangeTau_HeadOnCollision_ReturningExactTimeToImpact()
+    public void CalculateHorizontalTau_HeadOnCollision_ReturningExactTimeToImpact()
     {
         //Aircraft 10NM appart heading directly towards eachother.
         //both 360kts (0.1 NM/s, relative closure 0.2NM/s)
@@ -19,13 +19,13 @@ public class TauCalculatorTests
         Aircraft ownShip = new Aircraft("OWN1", 0.0, 0.0, 10000.0, 360.0, 90.0, 0.0);
         Aircraft intShip = new Aircraft("INT1", 10.0, 0.0, 10000.0, 360.0, 270.0, 0.0);
         //Act:
-        double tau = TauCalculator.CalculateSlantRangeTau(ownShip, intShip);
+        double tau = TauCalculator.CalculateHorizontalTau(ownShip, intShip);
         //Assert:
         Assert.Equal(50.0, tau, precision: 2);
     }
 
         [Fact]
-    public void CalculateSlantRangeTau_DivergingAircraft_ReturnsInfinity()
+    public void CalculateHorizontalTau_DivergingAircraft_ReturnsInfinity()
     {
         //Aircrafts moving away from eachother
 
@@ -33,13 +33,13 @@ public class TauCalculatorTests
         Aircraft ownShip = new Aircraft("OWN1", 0.0, 0.0, 10000.0, 360.0, 270.0, 0.0);
         Aircraft intShip = new Aircraft("INT1", 10.0, 0.0, 10000.0, 360.0, 90.0, 0.0);
         //Act:
-        double tau = TauCalculator.CalculateSlantRangeTau(ownShip, intShip);
+        double tau = TauCalculator.CalculateHorizontalTau(ownShip, intShip);
         //Assert:
         Assert.True(double.IsPositiveInfinity(tau));
     }
 
         [Fact]
-    public void CalculateSlantRangeTau_PerpendiculatIntersectingPaths_ReturnsTimeToCPA()
+    public void CalculateHorizontalTau_PerpendiculatIntersectingPaths_ReturnsTimeToCPA()
     {
         // Ownship at origin (0, 0) moving North (0 deg / 360 kts = 0.1 NM/s).
         // Intruder at (10, 10) moving West (270 deg / 360 kts = 0.1 NM/s).
@@ -50,21 +50,21 @@ public class TauCalculatorTests
         Aircraft  intship = new Aircraft("INT1", 10.0, 10.0, 10000.0, 360.0, 270.0, 0.0); // Heading West
 
         //Act:
-        double tau = TauCalculator.CalculateSlantRangeTau(ownship, intship);
+        double tau = TauCalculator.CalculateHorizontalTau(ownship, intship);
 
         //Assert:
         Assert.Equal(100.0, tau, precision: 2);
     }
 
         [Fact]
-        public void CalculateSlantRangeTau_ParallelSameSpeed_ReturnsInfinity()
+        public void CalculateHorizontalTau_ParallelSameSpeed_ReturnsInfinity()
     {
         // ARRANGE: Two aircraft flying side-by-side North at identical speeds (no relative motion).
         Aircraft ownship = new Aircraft("OWN1", 0.0, 0.0, 10000.0, 300.0, 0.0, 0.0);
         Aircraft intship = new Aircraft("INT1", 3.0, 0.0, 10000.0, 300.0, 0.0, 0.0);
 
         // ACT
-        double tau = TauCalculator.CalculateSlantRangeTau(ownship, intship);
+        double tau = TauCalculator.CalculateHorizontalTau(ownship, intship);
 
         // ASSERT
         Assert.True(double.IsPositiveInfinity(tau));

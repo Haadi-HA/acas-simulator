@@ -23,7 +23,7 @@ public class Aircraft
     // Kinematics
     public double GroundSpeedKnots { get; set; }
     public double HeadingDegrees { get; set; }
-    public double VerticalRateFpm { get; set; }
+    public double VerticalSpeedFpm { get; set; }
 
     // Threat State (default to the Clear TcasState untill threatengine updates)
     public TcasState State { get; set; } = TcasState.Clear;
@@ -36,7 +36,7 @@ public class Aircraft
         double pressureAltitudeFeet, 
         double groundSpeedKnots, 
         double headingDegrees, 
-        double verticalRateFpm)
+        double verticalSpeedFpm)
     {
         CallSign = callSign;
         CartesianX = cartesianX;
@@ -44,7 +44,7 @@ public class Aircraft
         PressureAltitudeFeet = pressureAltitudeFeet;
         GroundSpeedKnots = groundSpeedKnots;
         HeadingDegrees = headingDegrees;
-        VerticalRateFpm = verticalRateFpm;
+        VerticalSpeedFpm = verticalSpeedFpm;
     }
 
     //Position Update using kinematics attribiutes
@@ -60,7 +60,7 @@ public class Aircraft
         CartesianY += speedNmPerSec * Math.Sin(headingRad) * deltaTimeSeconds;
 
         // Altitude displacement (Feet per second)
-        PressureAltitudeFeet += (VerticalRateFpm / 60.0) * deltaTimeSeconds;
+        PressureAltitudeFeet += (VerticalSpeedFpm / 60.0) * deltaTimeSeconds;
     }
 
 }

@@ -4,10 +4,10 @@ namespace AcasSimulator.Engine;
 using System;
 using AcasSimulator.Models;
 
-// Calculates Horizontal/Slant Range Tau (seconds) between two aircraft
 public static class TauCalculator
 {
-    public static double CalculateSlantRangeTau(Aircraft ownship, Aircraft intruder)
+    // 2D Horizontal tau in seconds between two aircraft
+    public static double CalculateHorizontalTau(Aircraft ownship, Aircraft intruder)
     {
         // Relative Position Vector components (NM)
         double rx = intruder.CartesianX - ownship.CartesianX;
@@ -40,5 +40,25 @@ public static class TauCalculator
 
         // Calculate Tau
         return -dotProduct / relSpeedSquared;
+    }
+
+    // 2D Vertical in seconds between two aircraft
+    public static double CalculateVerticalTau(Aircraft ownship, Aircraft intruder)
+    {
+        //Altitude difference (feet)
+        double deltaAltitude = intruder.PressureAltitudeFeet - ownship.PressureAltitudeFeet;
+
+        // Relative vertical closure rate (ft/s)
+        // Postive rVCR if converging, negative if diverging
+        double relativeVerticalClosureRate = (deltaAltitude > 0) ? ownship.VerticalSpeedFpm - intruder.VerticalSpeedFpm : intruder.VerticalSpeedFpm - ownship.VerticalSpeedFpm;
+        
+        // if aircrafts are level or moving appart vertically
+        // using 1e-5 as epsilon threshold to avoid floating point rounding errors
+        if (Math.Abs(deltaAltitude) < 1e-5 || relativeVerticalClosureRate <= 0)
+        {
+            return double.PositiveInfinity;
+        }
+
+        return Math.Abs(deltaAltitude) / relativeVerticalClosureRate;
     }
 }
