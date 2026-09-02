@@ -2,16 +2,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS testrunner
 WORKDIR /app
 
-# Copy solution and project files first
+# Copy solution and project files first to cache NuGet restore
 COPY AcasSimulator.slnx ./
 COPY AcasSimulator/AcasSimulator.csproj AcasSimulator/
 COPY AcasSimulator.Tests/AcasSimulator.Tests.csproj AcasSimulator.Tests/
 
-# Restore dependencies
+# Restore dependencies (Cached unless .csproj changes)
 RUN dotnet restore
 
-# Copy all remaining source code
+# Copy actual source code (Ignored bin/obj via .dockerignore)
 COPY . ./
 
-# Run xUnit tests
+# Build and run tests
 ENTRYPOINT ["dotnet", "test", "--logger:console;verbosity=normal"]

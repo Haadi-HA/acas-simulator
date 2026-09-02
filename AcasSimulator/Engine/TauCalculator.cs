@@ -14,13 +14,13 @@ public static class TauCalculator
         double ry = intruder.CartesianY - ownship.CartesianY;
 
         // Velocity vectors (NM/s)
-        double ownHeadingRad = (90.0 - ownship.HeadingDegrees) * (Math.PI / 180.0);
-        double ownVx = (ownship.GroundSpeedKnots / 3600.0) * Math.Cos(ownHeadingRad);
-        double ownVy = (ownship.GroundSpeedKnots / 3600.0) * Math.Sin(ownHeadingRad);
+        double ownHeadingRad = ownship.HeadingDegrees * (Math.PI / 180.0);
+        double ownVx = (ownship.GroundSpeedKnots / 3600.0) * Math.Sin(ownHeadingRad);
+        double ownVy = (ownship.GroundSpeedKnots / 3600.0) * Math.Cos(ownHeadingRad);
 
-        double intHeadingRad = (90.0 - intruder.HeadingDegrees) * (Math.PI / 180.0);
-        double intVx = (intruder.GroundSpeedKnots / 3600.0) * Math.Cos(intHeadingRad);
-        double intVy = (intruder.GroundSpeedKnots / 3600.0) * Math.Sin(intHeadingRad);
+        double intHeadingRad = intruder.HeadingDegrees * (Math.PI / 180.0);
+        double intVx = (intruder.GroundSpeedKnots / 3600.0) * Math.Sin(intHeadingRad);
+        double intVy = (intruder.GroundSpeedKnots / 3600.0) * Math.Cos(intHeadingRad);
 
         // Relative velocity vector (NM/s) how fast intruder is intruder is closing in relative
         double rvx = intVx - ownVx;
