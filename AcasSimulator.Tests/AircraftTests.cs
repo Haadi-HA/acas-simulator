@@ -17,10 +17,10 @@ public class AircraftTests
             pressureAltitudeFeet: 10000.0,
             groundSpeedKnots: 360.0,
             headingDegrees: 0.0,
-            verticalRateFpm: 600.0 // +10 ft/sec
+            verticalSpeedFpm: 600.0 // +10 ft/sec
         );
 
-        // ACT: update position by 10 seconds
+        // ACT: 
         aircraft.UpdatePosition(10.0);
 
         // ASSERT: Verify coordinates and altitude changes
