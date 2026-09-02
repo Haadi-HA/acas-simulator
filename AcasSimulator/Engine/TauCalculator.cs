@@ -83,6 +83,22 @@ public static class TauCalculator
     
     public static double CalculateModifiedTau(Aircraft ownship, Aircraft intruder, double dmodNM)
     {
+        RelativeKinematics k = new RelativeKinematics(ownship, intruder);
 
+        // Inside DMOD boundary then immediate threat
+        if (k.Range <= dmodNM)
+        {
+            return 0.0;
+        }
+
+        // Diverging or parallel
+        if (k.DotProduct >= 0)
+        {
+            return double.PositiveInfinity;
+        }
+
+        // tauMod = -(r^2 - DMOD^2) / (r * r_dot) where r * r_dot == DotProduct
+        double tauMod = -(k.Range * k.Range - dmodNM * dmodNM) / k.DotProduct;
+        return tauMod;
     }
 }
