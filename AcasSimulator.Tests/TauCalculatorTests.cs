@@ -8,9 +8,9 @@ using AcasSimulator.Models;
 
 public class TauCalculatorTests
 {
-    //============================
+    //========================================================
     // Horizontal Tau Test
-    //============================
+    //========================================================
 
     [Fact]
     public void CalculateHorizontalTau_HeadOnCollision_ReturningExactTimeToImpact()
@@ -78,9 +78,9 @@ public class TauCalculatorTests
         Assert.True(double.IsPositiveInfinity(tauH));
     }
 
-    //============================
+    //========================================================
     // Vertical Tau Test
-    //============================
+    //========================================================
 
     [Fact]
     public void CalculateVerticalTau_ConvergingAltitudes_ReturnsExactTimeToCoAltitudeame()
@@ -116,4 +116,57 @@ public class TauCalculatorTests
         Assert.True(double.IsPositiveInfinity(tauV));
     }
 
+    //========================================================
+    // Modified Tau Test
+    //========================================================
+
+    [Fact]
+    public void CalculateModifiedTau_InsideDmodBoundary_ReturnsZero()
+    {
+        // DMOD is 1.1 NM intruder at 0.8 NM range.
+
+        // ARRANGE:
+        Aircraft ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", 0.8, 0.0, 30000.0, 360.0, 270.0, 0.0);
+
+        // ACT:
+        double tauMod = TauCalculator.CalculateModifiedTau(ownship, intruder, dmodNM: 1.1);
+
+        // ASSERT:
+        Assert.Equal(0.0, tauMod);
+    }
+
+    [Fact]
+    public void CalculateModifiedTau_DivergingAircraft_ReturnsInfinity()
+    {
+        // Aircraft moving away from each other
+
+        // ARRANGE:
+        Aircraft ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 270.0, 0.0); // West
+        Aircraft intruder = new Aircraft("INT1", 5.0, 0.0, 30000.0, 360.0, 90.0, 0.0);  // East
+
+        // ACT:
+        double tauMod = TauCalculator.CalculateModifiedTau(ownship, intruder, dmodNM: 1.1);
+
+        // ASSERT:
+        Assert.True(double.IsPositiveInfinity(tauMod));
+    }
+
+    [Fact]
+    public void CalculateModifiedTau_StandardConvergence_ReturnsModifiedTauValue()
+    {
+        // r = 10 NM, dotProduct = 10 * (-0.2) = -2.0
+        // DMOD = 1.1 NM ,  DMOD^2 = 1.21
+        // TauMod = -(100 - 1.21) / -2.0 = 98.79 / 2.0 = 49.395 seconds
+
+        // ARRANGE:
+        Aircraft ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", 10.0, 0.0, 30000.0, 360.0, 270.0, 0.0);
+
+        // ACT
+        double tauMod = TauCalculator.CalculateModifiedTau(ownship, intruder, dmodNM: 1.1);
+
+        // ASSERT:
+        Assert.Equal(49.40, tauMod, precision: 2);
+    }
 }
