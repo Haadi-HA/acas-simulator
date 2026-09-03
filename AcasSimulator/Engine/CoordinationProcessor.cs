@@ -5,37 +5,41 @@ using AcasSimulator.Models;
 
 public static class CoordinationProcessor
 {
-    public static AdvisorySense ResolveCoordinatedSense(
+    public static CoordinationResult ResolveCoordinatedSense(
         Aircraft receivingOwnship, 
         Aircraft transmittingIntruder, 
         ModeSCoordinationMessage? incomingMessage)  //incoming message is allowed to be a null value
     {
         // Single aircraft calculation - ownships choosing prefered manouver
-        AdvisorySense initialSense = RaSenseSelector.SelectSense(receivingOwnship, transmittingIntruder);
+        AdvisorySense preferredSense = RaSenseSelector.SelectSense(receivingOwnship, transmittingIntruder);
+        AdvisorySense finalSense = preferredSense;
 
-        // If no incoming Mode S coordination frame use local sense selection
-        if (incomingMessage == null || incomingMessage.ActiveSense == AdvisorySense.None)
+        // If the transmitting aircraft is in a Active Vertical controll restriction
+        if (incomingMessage != null && incomingMessage.VerticalControlRestricted)
         {
-            return initialSense;
-        }
-
-        // Check if both aircraft chose same sense
-        if (initialSense == incomingMessage.ActiveSense)
-        {
-            // For Tie Breaking compare ICAO addresses identifiers
-            int addressComparison = string.Compare(receivingOwnship.IcaoAddress, transmittingIntruder.IcaoAddress, StringComparison.OrdinalIgnoreCase);
-
-            // Lower ICAO address has priority in sense selection
-            if (addressComparison > 0) 
+            // Check if both aircraft chose same sense
+            if (preferredSense == incomingMessage.ActiveSense)
             {
-                // receivingOwnship has the LOWER ICAO address, swap its desired sense for both senses to be complementary
-                return initialSense == AdvisorySense.Climb ? AdvisorySense.Descend : AdvisorySense.Climb;
-            }
-            // receivingOwnship has the HIGHER address, thefore gets priority in its sense
-            return initialSense;
-        }
+                // For Tie Breaking compare ICAO addresses identifiers
+                int addressComparison = string.Compare(receivingOwnship.IcaoAddress, transmittingIntruder.IcaoAddress, StringComparison.OrdinalIgnoreCase);
 
-        // Senses are not the same, they are complementary
-        return initialSense;
+                // Higher ICAO address is less priority, therefore yield and invert from prefered sense
+                if (addressComparison > 0) 
+                {
+                    finalSense = preferredSense == AdvisorySense.Climb ? AdvisorySense.Descend : AdvisorySense.Climb;
+                }
+                // Lower ICAO address skips invert, maintains prefered sense
+            }
+        } 
+
+        // Make message for target aircraft
+        ModeSCoordinationMessage outgoingMessage = new ModeSCoordinationMessage(
+            senderIcao: receivingOwnship.IcaoAddress,
+            targetIcao: transmittingIntruder.IcaoAddress,
+            activeSense: finalSense
+        );
+
+        // Return the packaged CoordinationResult
+        return new CoordinationResult(finalSense, outgoingMessage);   
     }
 }

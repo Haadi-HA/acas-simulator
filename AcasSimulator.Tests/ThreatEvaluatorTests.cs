@@ -13,8 +13,8 @@ public class ThreatEvaulatorTests
         // Dist = 5 NM, Closing Speed = 720 kts (0.2 NM/s) -- TauMod = 23.8s <= 35s
 
         // ARRANGE:
-        var ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
-        var intruder = new Aircraft("INT1", 5.0, 0.0, 30000.0, 360.0, 270.0, 0.0);
+        Aircraft ownship = new Aircraft("OWN1", "400001", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", "400002", 5.0, 0.0, 30000.0, 360.0, 270.0, 0.0);
 
         // ACT:
         ThreatLevel threat = ThreatEvaulator.EvaluateThreat(ownship, intruder);
@@ -30,8 +30,8 @@ public class ThreatEvaulatorTests
         // Close distance (1 NM) head-on would trigger RA at higher altitudes
 
         // ARRANGE:
-        var ownship = new Aircraft("OWN1", 0.0, 0.0, 2000.0, 360.0, 90.0, 0.0);
-        var intruder = new Aircraft("INT1", 1.0, 0.0, 2000.0, 360.0, 270.0, 0.0);
+        Aircraft ownship = new Aircraft("OWN1", "400001", 0.0, 0.0, 2000.0, 360.0, 90.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", "400002", 1.0, 0.0, 2000.0, 360.0, 270.0, 0.0);
 
         // ACT:
         ThreatLevel threat = ThreatEvaulator.EvaluateThreat(ownship, intruder);
@@ -47,8 +47,8 @@ public class ThreatEvaulatorTests
         // Range = 3.0 NM, Altitude Delta = 500 ft.
 
         // ARRANGE:
-        var ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 0.0, 0.0);
-        var intruder = new Aircraft("INT1", 3.0, 0.0, 30500.0, 360.0, 0.0, 0.0);
+        Aircraft ownship = new Aircraft("OWN1", "400001", 0.0, 0.0, 30000.0, 360.0, 0.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", "400002", 3.0, 0.0, 30500.0, 360.0, 0.0, 0.0);
 
         // ACT:
         ThreatLevel threat = ThreatEvaulator.EvaluateThreat(ownship, intruder);
@@ -63,8 +63,8 @@ public class ThreatEvaulatorTests
         // Aircraft more than 6NM appart, clear ThreatLevel
 
         // ARRANGE:
-        var ownship = new Aircraft("OWN1", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
-        var intruder = new Aircraft("INT1", 10.0, 0.0, 30000.0, 360.0, 270.0, 0.0);
+        Aircraft ownship = new Aircraft("OWN1", "400001", 0.0, 0.0, 30000.0, 360.0, 90.0, 0.0);
+        Aircraft intruder = new Aircraft("INT1", "400002", 10.0, 0.0, 30000.0, 360.0, 270.0, 0.0);
 
         // ACT:
         ThreatLevel threat = ThreatEvaulator.EvaluateThreat(ownship, intruder);

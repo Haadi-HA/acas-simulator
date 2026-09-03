@@ -13,7 +13,7 @@ public class ModeSCoordinationMessage
     {
         SenderIcaoAddress = senderIcao;
         TargetIcaoAddress = targetIcao;
-        ActiveSense = activeSense;
-        VerticalControlRestricted = activeSense != AdvisorySense.None;
+        ActiveSense = activeSense;  // Resolution manuver chosen by Sender
+        VerticalControlRestricted = activeSense != AdvisorySense.None; // Sender aircraft has locked in a manouver 
     }
 }
