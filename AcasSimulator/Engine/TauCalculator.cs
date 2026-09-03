@@ -16,7 +16,6 @@ public static class TauCalculator
         public readonly double Rvy;
         public readonly double DotProduct;
         public readonly double RelSpeedSquared;
-
         public RelativeKinematics(Aircraft ownship, Aircraft intruder)
         {
             // Relative Position Vector components (NM)

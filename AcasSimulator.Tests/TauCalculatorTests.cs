@@ -1,6 +1,5 @@
 namespace AcasSimulator.Tests;
 
-using System;
 using Xunit;
 using AcasSimulator.Engine;
 using AcasSimulator.Models;

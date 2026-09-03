@@ -1,8 +1,8 @@
 namespace AcasSimulator.Tests;
 
 using Xunit;
-using AcasSimulator.Engine;
 using AcasSimulator.Models;
+using AcasSimulator.Engine;
 
 public class ThreatEvaulatorTests
 {

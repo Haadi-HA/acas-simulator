@@ -1,16 +1,8 @@
 namespace AcasSimulator.Engine;
 
 using System;
-using System.Globalization;
 using AcasSimulator.Models;
 
-public enum ThreatLevel
-{
-    Clear,
-    Proximate,
-    TrafficAdvisory,
-    ResolutionAdvisory
-}
 
 public static class ThreatEvaulator
 {

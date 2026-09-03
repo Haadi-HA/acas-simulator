@@ -1,14 +1,6 @@
-using System;
-
 namespace AcasSimulator.Models;
 
-public enum TcasState
-{
-    Clear,
-    Proximate,
-    TrafficAdvisory,
-    ResolutionAdvisory
-}
+using System;
 
 public class Aircraft
 {
@@ -25,8 +17,8 @@ public class Aircraft
     public double HeadingDegrees { get; set; }
     public double VerticalSpeedFpm { get; set; }
 
-    // Threat State (default to the Clear TcasState untill threatengine updates)
-    public TcasState State { get; set; } = TcasState.Clear;
+    // Threat State (default to the Clear ThreatLevel untill threatengine updates)
+    public ThreatLevel State { get; set; } = ThreatLevel.Clear;
 
     // Constructor
     public Aircraft(
