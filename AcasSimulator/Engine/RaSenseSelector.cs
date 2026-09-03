@@ -5,7 +5,7 @@ using AcasSimulator.Models;
 
 public static class RaSenseSelector
 {
-    // Standard DO-185B initial RA maneuver vertical rate: 1,500 fpm
+    // Standard DO-185B initial RA maneuver vertical rate 1,500 fpm
     private const double StandardRaVerticalRateFpm = 1500.0;
 
     public static AdvisorySense SelectSense(Aircraft ownship, Aircraft intruder)
