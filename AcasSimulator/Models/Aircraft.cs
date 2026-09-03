@@ -6,6 +6,7 @@ public class Aircraft
 {
     // Identification
     public string CallSign { get; set; }
+    public string IcaoAddress { get; set; } //for communications and tie breaking 
 
     // Position (Cartesian coordinates in Nautical Miles relative to Manchester airport EGCC)
     public double CartesianX { get; set; }
@@ -22,7 +23,8 @@ public class Aircraft
 
     // Constructor
     public Aircraft(
-        string callSign, 
+        string callSign,
+        string icaoAddress,
         double cartesianX, 
         double cartesianY, 
         double pressureAltitudeFeet, 
@@ -31,6 +33,7 @@ public class Aircraft
         double verticalSpeedFpm)
     {
         CallSign = callSign;
+        IcaoAddress = icaoAddress;
         CartesianX = cartesianX;
         CartesianY = cartesianY;
         PressureAltitudeFeet = pressureAltitudeFeet;

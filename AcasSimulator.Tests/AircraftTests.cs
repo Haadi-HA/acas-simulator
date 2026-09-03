@@ -12,6 +12,7 @@ public class AircraftTests
         // ARRANGE: Fly North (0.1 NM/sec) for 10 seconds
         Aircraft aircraft = new Aircraft(
             callSign: "TEST01",
+            icaoAddress: "000000",
             cartesianX: 0.0,
             cartesianY: 0.0,
             pressureAltitudeFeet: 10000.0,
